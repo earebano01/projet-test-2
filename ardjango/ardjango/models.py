@@ -6,4 +6,4 @@ class TemperatureData(models.Model):
     time = models.TimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return f'Temperature: {self.temperature} °C at {self.timestamp}'
+        return f'Temperature: {self.temperature} °C at {self.date} {self.time}'

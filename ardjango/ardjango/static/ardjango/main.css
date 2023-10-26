@@ -1,0 +1,24 @@
+body {
+    background-color: #333; /* Dark gray background */
+    color: #fff; /* White text for contrast */
+}
+
+#total-orders {
+    /* background-color: #444; Darker gray */
+    background-color: #555; /* Even darker gray */
+}
+
+#orders-delivered {
+    background-color: #555; /* Even darker gray */
+}
+
+#orders-pending {
+    /* background-color: #666; Another shade of gray */
+    background-color: #555; /* Even darker gray */
+}
+
+h3 {
+    color: #555; /* Font color as #555 (gray) */
+    font-weight: bold; /* Bold text */
+    text-align: center;
+}
