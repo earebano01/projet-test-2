@@ -15,7 +15,7 @@ urlpatterns = [
     path('humidity/', views.humidityView, name='humidity'),
     path('temperature/', views.temperatureView, name='temperature'),
     path('heat_index/', views.heat_indexView, name='heat_index'),
-    path('statistics/', views.temperatureView, name='statistics'),
+    path('statistics/', views.statisticsView, name='statistics'),
     
 ]
 

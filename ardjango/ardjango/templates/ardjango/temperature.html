@@ -1,109 +1,118 @@
-<title>Temperature</title>
-
 {% extends 'ardjango/base.html' %}
 
-{% include 'ardjango/navbar.html' %}
-
 {% block content %}
-
-<head>
-    <title>Sensor Data</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
-    
-</head>
-<body onload="refreshPage()">
-    <div class="container mt-4">
-        <h3>Temperature Data Table</h3>
-        <br>
-        <div class="row">
-            <div class="col-md-5">
-                <div class="scrollable-table">
-                    <table class="table table-bordered table-sm">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Humidity</th>
-                                <th>Celsius</th>
-                                <th>Fahrenheit</th>
-                                <th>Heat Index (°C)</th>
-                                <th>Heat Index (°F)</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for data in temperature_data %}
-                            <tr>
-                                <td>{{ data.id }}</td>
-                                <td>{{ data.humidity }}</td>
-                                <td>{{ data.celsius }}</td>
-                                <td>{{ data.fahrenheit }}</td>
-                                <td>{{ data.hic }}</td>
-                                <td>{{ data.hif }}</td>
-                                <td>{{ data.date }}</td>
-                                <td>{{ data.time }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-md-7">
-                <div>
-                    <canvas id="myChart"></canvas>
-                </div>
-                
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                
-                <script>
-                    const xValues = [];
-                    const yValues = [];
-
-                        {% for data in temperature_data %}
-                        xValues.push({{ data.celsius }});
-                        yValues.push("{{ data.date }} {{ data.time }}");
+<div class="container mt-4">
+    <h3>Celsius Data Table</h3>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="scrollable-table">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Celsius</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data1 in temperature_data %}
+                        <tr>
+                            <td>{{ data1.id }}</td>
+                            <td>{{ data1.celsius }}</td>
+                            <td>{{ data1.date }}</td>
+                            <td>{{ data1.time }}</td>
+                        </tr>
                         {% endfor %}
-
-                    const ctx = document.getElementById('myChart').getContext('2d');
-
-                    const data = {
-                        labels: yValues,
-                        datasets: [
-                            {
-                                label: 'Temperature',
-                                data: xValues,
-                                borderColor: 'red',
-                                backgroundColor: 'rgba(255, 0, 0, 0.5)',
-                                pointStyle: 'circle',
-                                pointRadius: 10,
-                                pointHoverRadius: 15
-                            }
-                        ]
-                    };
-
-                    const config = {
-                        type: 'line',
-                        data: data,
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                title: {
-                                    display: true,
-                                    text: (ctx) => 'Point Style: circle (default)'
-                                }
-                            }
-                        }
-                    };
-                    new Chart(ctx, config);
-                  </script>
+                    </tbody>
+                </table>
             </div>
+        </div>
+        <div class="col-md-7">
+            <canvas id="myChart1"></canvas>
         </div>
     </div>
 
+    <h3>Fahrenheit Data Table</h3>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="scrollable-table">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fahrenheit</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in temperature_data %}
+                        <tr>
+                            <td>{{ data.id }}</td>
+                            <td>{{ data.fahrenheit }}</td>
+                            <td>{{ data.date }}</td>
+                            <td>{{ data.time }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+       <div class="col-md-7">
+    <canvas id="myChart1"></canvas>
+</div>
+<div class="col-md-7">
+    <canvas id="myChart2"></canvas> <!-- Give a unique ID for the second chart -->
+</div>
+</div>
+</div>
 
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const xValues1 = [{% for data1 in temperature_data %} {{ data1.celsius }}, {% endfor %}];
+    const yValues1 = [{% for data1 in temperature_data %} "{{ data1.date }} {{ data1.time }}", {% endfor %}];
+
+    const xValues2 = [{% for data in temperature_data %} {{ data.fahrenheit }}, {% endfor %}];
+    const yValues2 = [{% for data in temperature_data %} "{{ data.date }} {{ data.time }}", {% endfor %}];
+
+    const createChart = (canvasId, xValues, yValues) => {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+
+        const data = {
+            labels: yValues,
+            datasets: [
+                {
+                    label: 'Temperature',
+                    data: xValues,
+                    borderColor: 'red',
+                    backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                    pointStyle: 'circle',
+                    pointRadius: 10,
+                    pointHoverRadius: 15
+                }
+            ]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: (ctx) => 'Point Style: circle (default)'
+                    }
+                }
+            }
+        };
+
+        new Chart(ctx, config);
+    };
+
+    createChart('myChart1', xValues1, yValues1);
+    createChart('myChart2', xValues2, yValues2); // Pass a unique ID for the second chart
+</script>
 
 {% endblock %}
-    
-    
