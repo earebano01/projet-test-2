@@ -1,15 +1,18 @@
+from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import SimpleRouter
+from rest_framework import routers
 from ardjango.views import TemperatureDataViewSet
 from . import views
 
-router = SimpleRouter()
+router = routers.SimpleRouter()
 router.register(r'temperature-data', TemperatureDataViewSet)
-router.register('temperature', TemperatureDataViewSet, basename='temperature')
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
     path('api/', include(router.urls)),
-    path('temperature/', views.temperature, name='temperature'),
+    path('api-auth/', include('rest_framework.urls')),
+    path('temperature/', views.temperature_data_view, name='temperature'),
     
 ]
 

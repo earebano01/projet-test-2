@@ -22,3 +22,16 @@ h3 {
     font-weight: bold; /* Bold text */
     text-align: center;
 }
+
+table.table-sm {
+    font-size: 0.9rem;
+}
+
+table.table-sm th,
+table.table-sm td {
+    padding: 0.2rem 0.5rem;
+}
+.scrollable-table {
+    max-height: 550px;
+    overflow-y: scroll;
+}

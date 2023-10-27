@@ -1,39 +1,12 @@
-{% load static %}
+<title>Temperature</title>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static '/ardjango/main.css' %}">
-</head>
-<body>
-    
-    {% include 'ardjango/navbar.html' %}
+{% extends 'ardjango/base.html' %}
 
-    {% block content %}
-    <!-- <h1>Temperature Data Table</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Temperature (°C)</th>
-                <th>Timestamp</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for data in temperature_data %}
-            <tr>
-                <td>{{ data.id }}</td>
-                <td>{{ data.temperature }}</td>
-                <td>{{ data.date }}</td>
-                <td>{{ data.time }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table> -->
-    <br>
+{% include 'ardjango/navbar.html' %}
+
+{% block content %}
+
+<!-- <br>
 <div class="row">
     <div class="col-md">
         <div class="card card-body">
@@ -50,20 +23,138 @@
 
                 {% for data in temperature_data %}
                 <tr>
-                    <td>{{data.id}}</td>
-                    <td>{{data.temperature}}</td>
-                    <td>{{data.date}}</td>
-                    <td>{{data.time}}</td>
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.temperature }}</td>
+                    <td>{{ data.date }}</td>
+                    <td>{{ data.time }}</td>
                 </tr>
                 {% endfor %}
 
             </table>
         </div>
     </div>
-</div>
-    {% endblock %}
+</div> -->
+
+<head>
+    <title>Sensor Data</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script> -->
     
+</head>
+<body onload="refreshPage()">
+    <div class="container mt-4">
+        <h3>Temperature Data Table</h3>
+        <br>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="scrollable-table">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Temperature</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in temperature_data %}
+                            <tr>
+                                <td>{{ data.id }}</td>
+                                <td>{{ data.temperature }}</td>
+                                <td>{{ data.date }}</td>
+                                <td>{{ data.time }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <!-- <canvas id="myChart" style="width:100%; max-width:1000px; height:500px"></canvas>
+                <script th:inline="javascript">
+                    const xValues = [[${xValues}]];
+                    const yValues = [[${yValues}]];
+                    const ctx = document.getElementById("myChart").getContext("2d");
+                    new Chart(ctx, {
+                        type: "line",
+                        data: {
+                            labels: xValues,
+                            datasets: [{
+                                label: 'Temperature Data',
+                                data: yValues,
+                                fill: false,
+                                borderColor: 'rgb(222, 51, 51)',
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                x: {
+                                    type: 'time',
+                                    time: {
+                                        unit: 'day',
+                                        displayFormats: {
+                                            day: 'MMM DD, YYYY'
+                                        }
+                                    }
+                                },
+                                y: {
+                                    ticks: {
+                                        min: 6,
+                                        max: 16
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    function refreshPage() {
+                        setTimeout(function () {
+                            location.reload();
+                        }, 5000);
+                    }
+                </script> -->
+                <div>
+                    <canvas id="myChart"></canvas>
+                  </div>
+                  
+                  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                  
+                  <script>
+                    const xValues = [];
+                    const yValues = [];
+                        {% for data in temperature_data %}
+                        xValues.push({{ data.temperature }});
+                        yValues.push("{{ data.date }} {{ data.time }}");
+                        {% endfor %}
+
+                    const ctx = document.getElementById('myChart');
+                    new Chart(ctx, {
+                      type: 'bar',
+                      data: {
+                        labels: [yValues],
+                        datasets: [{
+                          label: '# of Votes',
+                          data: [xValues],
+                          borderWidth: 1
+                        }]
+                      },
+                      options: {
+                        scales: {
+                          y: {
+                            beginAtZero: true
+                          }
+                        }
+                      }
+                    });
+                  </script>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
+{% endblock %}
+    
     
