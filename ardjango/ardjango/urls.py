@@ -12,7 +12,10 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
-    path('temperature/', views.temperature_data_view, name='temperature'),
+    path('humidity/', views.humidityView, name='humidity'),
+    path('temperature/', views.temperatureView, name='temperature'),
+    path('heat_index/', views.heat_indexView, name='heat_index'),
+    path('statistics/', views.temperatureView, name='statistics'),
     
 ]
 

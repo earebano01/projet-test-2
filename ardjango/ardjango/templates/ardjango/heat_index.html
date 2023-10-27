@@ -22,7 +22,11 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Temperature</th>
+                                <th>Humidity</th>
+                                <th>Celsius</th>
+                                <th>Fahrenheit</th>
+                                <th>Heat Index (°C)</th>
+                                <th>Heat Index (°F)</th>
                                 <th>Date</th>
                                 <th>Time</th>
                             </tr>
@@ -31,7 +35,11 @@
                             {% for data in temperature_data %}
                             <tr>
                                 <td>{{ data.id }}</td>
-                                <td>{{ data.temperature }}</td>
+                                <td>{{ data.humidity }}</td>
+                                <td>{{ data.celsius }}</td>
+                                <td>{{ data.fahrenheit }}</td>
+                                <td>{{ data.hic }}</td>
+                                <td>{{ data.hif }}</td>
                                 <td>{{ data.date }}</td>
                                 <td>{{ data.time }}</td>
                             </tr>
@@ -52,7 +60,7 @@
                     const yValues = [];
 
                         {% for data in temperature_data %}
-                        xValues.push({{ data.temperature }});
+                        xValues.push({{ data.celsius }});
                         yValues.push("{{ data.date }} {{ data.time }}");
                         {% endfor %}
 
@@ -91,6 +99,8 @@
             </div>
         </div>
     </div>
+
+
 </body>
 </html>
 

@@ -11,6 +11,18 @@ class TemperatureDataViewSet(viewsets.ModelViewSet):
     queryset = TemperatureData.objects.all()
     serializer_class = TemperatureDataSerializer
 
-def temperature_data_view(request):
+def temperatureView(request):
     temperature_data = TemperatureData.objects.all()
-    return render(request, 'ardjango/temperature_data_table.html', {'temperature_data': temperature_data})
+    return render(request, 'ardjango/temperature.html', {'temperature_data': temperature_data})
+
+def humidityView(request):
+    temperature_data = TemperatureData.objects.all()
+    return render(request, 'ardjango/humidity.html', {'temperature_data': temperature_data})
+
+def heat_indexView(request):
+    temperature_data = TemperatureData.objects.all()
+    return render(request, 'ardjango/heat_index.html', {'temperature_data': temperature_data})
+
+def statisticsView(request):
+    temperature_data = TemperatureData.objects.all()
+    return render(request, 'ardjango/statistics.html', {'temperature_data': temperature_data})
