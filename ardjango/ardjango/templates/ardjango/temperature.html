@@ -3,6 +3,7 @@
 {% block content %}
 <div class="container mt-4">
     <h3>Celsius Data Table</h3>
+    <br>
     <div class="row">
         <div class="col-md-5">
             <div class="scrollable-table">
@@ -32,8 +33,9 @@
             <canvas id="myChart1"></canvas>
         </div>
     </div>
-
+    <br><br><br><br>
     <h3>Fahrenheit Data Table</h3>
+    <br>
     <div class="row">
         <div class="col-md-5">
             <div class="scrollable-table">
@@ -59,60 +61,108 @@
                 </table>
             </div>
         </div>
-       <div class="col-md-7">
-    <canvas id="myChart1"></canvas>
-</div>
-<div class="col-md-7">
-    <canvas id="myChart2"></canvas> <!-- Give a unique ID for the second chart -->
-</div>
-</div>
+        
+        
+        <div class="col-md-7">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-    const xValues1 = [{% for data1 in temperature_data %} {{ data1.celsius }}, {% endfor %}];
-    const yValues1 = [{% for data1 in temperature_data %} "{{ data1.date }} {{ data1.time }}", {% endfor %}];
+    // celsius chart
+    Chart.defaults.color = 'white';
+    Chart.defaults.borderColor = 'gray';
+    const xValues1 = [];
+    const yValues1 = [];
 
-    const xValues2 = [{% for data in temperature_data %} {{ data.fahrenheit }}, {% endfor %}];
-    const yValues2 = [{% for data in temperature_data %} "{{ data.date }} {{ data.time }}", {% endfor %}];
+    {% for data1 in temperature_data %}
+    xValues1.push({{ data1.celsius }});
+    yValues1.push("{{ data1.date }} {{ data1.time }}");
+    {% endfor %}
 
-    const createChart = (canvasId, xValues, yValues) => {
-        const ctx = document.getElementById(canvasId).getContext('2d');
+    const ctx1 = document.getElementById('myChart1').getContext('2d');
 
-        const data = {
-            labels: yValues,
-            datasets: [
-                {
-                    label: 'Temperature',
-                    data: xValues,
-                    borderColor: 'red',
-                    backgroundColor: 'rgba(255, 0, 0, 0.5)',
-                    pointStyle: 'circle',
-                    pointRadius: 10,
-                    pointHoverRadius: 15
-                }
-            ]
-        };
-
-        const config = {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: (ctx) => 'Point Style: circle (default)'
-                    }
-                }
+    const data1 = {
+        labels: yValues1,
+        datasets: [
+            {
+                label: 'Celsius',
+                data: xValues1,
+                borderColor: 'red',
+                backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                pointStyle: 'circle',
+                fill: true,
+                pointRadius: 10,
+                pointHoverRadius: 15
+                
             }
-        };
-
-        new Chart(ctx, config);
+        ]
     };
 
-    createChart('myChart1', xValues1, yValues1);
-    createChart('myChart2', xValues2, yValues2); // Pass a unique ID for the second chart
-</script>
+    const config1 = {
+        type: 'line',
+        data: data1,
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'TEMPERATURE'
+                    
+                }
+            }
+        }
+    };
 
+    new Chart(ctx1, config1);
+
+    // fahrenheit chart
+    Chart.defaults.color = 'white';
+    Chart.defaults.borderColor = 'gray';
+    const xValues = [];
+    const yValues = [];
+
+    {% for data in temperature_data %}
+    xValues.push({{ data.celsius }});
+    yValues.push("{{ data.date }} {{ data.time }}");
+    {% endfor %}
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    const data = {
+        labels: yValues,
+        datasets: [
+            {
+                label: 'Fahrenheit',
+                data: xValues,
+                borderColor: 'yellow',
+                backgroundColor: 'rgba(255, 255, 0, 0.5)',
+                pointStyle: 'circle',
+                fill: true,
+                pointRadius: 10,
+                pointHoverRadius: 15
+            }
+        ]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'TEMPERATURE'
+                }
+            }
+        }
+    };
+
+    new Chart(ctx, config);
+</script>
+<br>
 {% endblock %}
