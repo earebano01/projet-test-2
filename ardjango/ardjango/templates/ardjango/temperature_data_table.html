@@ -6,40 +6,9 @@
 
 {% block content %}
 
-<!-- <br>
-<div class="row">
-    <div class="col-md">
-        <div class="card card-body">
-            <h3>Temperature Data Table</h3>
-        </div>
-        <div class="card card-body">
-             <table class="table">
-                <tr>
-                    <th>ID</th>
-                    <th>Temperature</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                </tr>
-
-                {% for data in temperature_data %}
-                <tr>
-                    <td>{{ data.id }}</td>
-                    <td>{{ data.temperature }}</td>
-                    <td>{{ data.date }}</td>
-                    <td>{{ data.time }}</td>
-                </tr>
-                {% endfor %}
-
-            </table>
-        </div>
-    </div>
-</div> -->
-
 <head>
     <title>Sensor Data</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script> -->
     
 </head>
 <body onload="refreshPage()">
@@ -72,82 +41,52 @@
                 </div>
             </div>
             <div class="col-md-7">
-                <!-- <canvas id="myChart" style="width:100%; max-width:1000px; height:500px"></canvas>
-                <script th:inline="javascript">
-                    const xValues = [[${xValues}]];
-                    const yValues = [[${yValues}]];
-                    const ctx = document.getElementById("myChart").getContext("2d");
-                    new Chart(ctx, {
-                        type: "line",
-                        data: {
-                            labels: xValues,
-                            datasets: [{
-                                label: 'Temperature Data',
-                                data: yValues,
-                                fill: false,
-                                borderColor: 'rgb(222, 51, 51)',
-                                tension: 0.1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                x: {
-                                    type: 'time',
-                                    time: {
-                                        unit: 'day',
-                                        displayFormats: {
-                                            day: 'MMM DD, YYYY'
-                                        }
-                                    }
-                                },
-                                y: {
-                                    ticks: {
-                                        min: 6,
-                                        max: 16
-                                    }
-                                }
-                            }
-                        }
-                    });
-                    function refreshPage() {
-                        setTimeout(function () {
-                            location.reload();
-                        }, 5000);
-                    }
-                </script> -->
                 <div>
                     <canvas id="myChart"></canvas>
-                  </div>
-                  
-                  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                  
-                  <script>
+                </div>
+                
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                
+                <script>
                     const xValues = [];
                     const yValues = [];
+
                         {% for data in temperature_data %}
                         xValues.push({{ data.temperature }});
                         yValues.push("{{ data.date }} {{ data.time }}");
                         {% endfor %}
 
-                    const ctx = document.getElementById('myChart');
-                    new Chart(ctx, {
-                      type: 'bar',
-                      data: {
-                        labels: [yValues],
-                        datasets: [{
-                          label: '# of Votes',
-                          data: [xValues],
-                          borderWidth: 1
-                        }]
-                      },
-                      options: {
-                        scales: {
-                          y: {
-                            beginAtZero: true
-                          }
+                    const ctx = document.getElementById('myChart').getContext('2d');
+
+                    const data = {
+                        labels: yValues,
+                        datasets: [
+                            {
+                                label: 'Temperature',
+                                data: xValues,
+                                borderColor: 'red',
+                                backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                                pointStyle: 'circle',
+                                pointRadius: 10,
+                                pointHoverRadius: 15
+                            }
+                        ]
+                    };
+
+                    const config = {
+                        type: 'line',
+                        data: data,
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: (ctx) => 'Point Style: circle (default)'
+                                }
+                            }
                         }
-                      }
-                    });
+                    };
+                    new Chart(ctx, config);
                   </script>
             </div>
         </div>
