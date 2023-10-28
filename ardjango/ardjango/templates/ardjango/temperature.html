@@ -63,16 +63,12 @@
                 </table>
             </div>
         </div>
-        
-        
         <div class="col-md-7">
             <canvas id="myChart"></canvas>
         </div>
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
     // celsius chart
     Chart.defaults.color = 'white';
@@ -86,7 +82,6 @@
     {% endfor %}
 
     const ctx1 = document.getElementById('myChart1').getContext('2d');
-
     const c = {
         labels: cDate,
         datasets: [
@@ -99,11 +94,9 @@
                 fill: true,
                 pointRadius: 10,
                 pointHoverRadius: 15
-                
             }
         ]
     };
-
     const config1 = {
         type: 'line',
         data: c,
@@ -112,13 +105,11 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'TEMPERATURE'
-                    
+                    text: 'TEMPERATURE' 
                 }
             }
         }
     };
-
     new Chart(ctx1, config1);
 
     // fahrenheit chart
@@ -133,7 +124,6 @@
     {% endfor %}
 
     const ctx = document.getElementById('myChart').getContext('2d');
-
     const f = {
         labels: fDate,
         datasets: [
@@ -149,7 +139,6 @@
             }
         ]
     };
-
     const config = {
         type: 'line',
         data: f,
@@ -163,7 +152,6 @@
             }
         }
     };
-
     new Chart(ctx, config);
 </script>
 <br>

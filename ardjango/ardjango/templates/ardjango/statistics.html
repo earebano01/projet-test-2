@@ -13,9 +13,7 @@
         </div>
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
     Chart.defaults.color = 'white';
     Chart.defaults.borderColor = 'gray';
@@ -67,36 +65,41 @@
                 label: 'Fahrenheit',
                 data: fahrenheit,
                 borderColor: 'yellow',
-                backgroundColor: 'rgba(255, 255, 0, 0.5)',
-                yAxisID: 'y1', 
+                backgroundColor: 'rgba(255, 255, 0, 0.20)',
+                yAxisID: 'y1',
+                fill: true,
             },
             {
                 label: 'Celsius',
                 data: celsius,
                 borderColor: 'red',
-                backgroundColor: 'rgba(255, 0, 0, 0.5)',
-                yAxisID: 'y', 
+                backgroundColor: 'rgba(255, 0, 0, 0.20)',
+                yAxisID: 'y',
+                fill: true,
             },
             {
                 label: 'Humidity',
                 data: humidity,
                 borderColor: 'green',
-                backgroundColor: 'rgba(0, 255, 0, 0.5)',
+                backgroundColor: 'rgba(0, 255, 0, 0.20)',
                 yAxisID: 'y2',
+                fill: true,
             },
             {
                 label: 'Heat Index Celsius',
                 data: hic,
                 borderColor: 'orange',
-                backgroundColor: 'rgba(255, 165, 0, 0.5)',
+                backgroundColor: 'rgba(255, 165, 0, 0.20)',
                 yAxisID: 'y3',
+                fill: true,
             },
             {
                 label: 'Heat Index Fahrenheit',
                 data: hif,
                 borderColor: 'blue',
-                backgroundColor: 'rgba(0, 0, 255, 0.5)',
+                backgroundColor: 'rgba(0, 0, 255, 0.20)',
                 yAxisID: 'y4',
+                fill: true,
             }
         ]
     };
@@ -155,7 +158,6 @@
             }
         }
     };
-
     new Chart(ctx, config);
 </script>
 {% endblock %}

@@ -1,11 +1,11 @@
 body {
-    background-color: #333; /* Dark gray background */
-    color: #fff; /* White text for contrast */
+    background-color: #333;
+    color: #fff;
 }
 
 h3 {
     color: #fff;
-    font-weight: bold; /* Bold text */
+    font-weight: bold;
     text-align: center;
 }
 
@@ -14,21 +14,21 @@ table.table-sm {
 }
 
 table.table-sm th{
-    background-color: #555; /* Slightly lighter background for table cells */
-    color: #fff; /* White text color for table cells */
+    background-color: #555;
+    color: #fff;
 }
 
 table.table-sm td {
     padding: 0.2rem 0.5rem;
-    background-color: #444; /* Slightly lighter background for table cells */
-    color: #fff; /* White text color for table cells */
+    background-color: #444;
+    color: #fff;
 }
 .scrollable-table {
     max-height: 575px;
     overflow-y: scroll;
 }
 canvas {
-    background-color: #444; /* Background for the chart area */
+    background-color: #444;
 }
 
 

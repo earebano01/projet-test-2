@@ -63,16 +63,12 @@
                 </table>
             </div>
         </div>
-        
-        
         <div class="col-md-7">
             <canvas id="myChart"></canvas>
         </div>
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
     // heat index celsius chart
     Chart.defaults.color = 'white';
@@ -86,7 +82,6 @@
     {% endfor %}
 
     const ctx1 = document.getElementById('myChart1').getContext('2d');
-
     const hc = {
         labels: hicDate,
         datasets: [
@@ -99,11 +94,9 @@
                 fill: true,
                 pointRadius: 10,
                 pointHoverRadius: 15
-                
             }
         ]
     };
-
     const config1 = {
         type: 'line',
         data: hc,
@@ -113,12 +106,10 @@
                 title: {
                     display: true,
                     text: 'HEAT INDEX'
-                    
                 }
             }
         }
     };
-
     new Chart(ctx1, config1);
 
     // heat index fahrenheit chart
@@ -133,7 +124,6 @@
     {% endfor %}
 
     const ctx = document.getElementById('myChart').getContext('2d');
-
     const hf = {
         labels: hifDate,
         datasets: [

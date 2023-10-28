@@ -36,9 +36,7 @@
         </div>
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
     // humidity chart
     Chart.defaults.color = 'white';
@@ -52,7 +50,6 @@
     {% endfor %}
 
     const ctx1 = document.getElementById('myChart1').getContext('2d');
-
     const hum = {
         labels: hDate,
         datasets: [
@@ -68,7 +65,6 @@
             }
         ]
     };
-
     const config1 = {
         type: 'line',
         data: hum,
@@ -82,7 +78,6 @@
             }
         }
     };
-
     new Chart(ctx1, config1);
 </script>
 <br>

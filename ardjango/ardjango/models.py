@@ -10,5 +10,4 @@ class TemperatureData(models.Model):
     time = models.TimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        # return f'Temperature: {self.temperature} °C at {self.date} {self.time}'
         return f'humidity: {self.humidity}, celsius: {self.celsius}, fahrenheit: {self.fahrenheit}, hic: {self.hic}, hif: {self.fahrenheit}, date: {self.date}, time: {self.time}'
