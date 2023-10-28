@@ -1,8 +1,10 @@
+<title>Temperature</title>
+
 {% extends 'ardjango/base.html' %}
 
 {% block content %}
 <div class="container mt-4">
-    <h3>Celsius Data Table</h3>
+    <h3>Tableau des données Celsius</h3>
     <br>
     <div class="row">
         <div class="col-md-5">
@@ -17,12 +19,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for data1 in temperature_data %}
+                        {% for c in temperature_data %}
                         <tr>
-                            <td>{{ data1.id }}</td>
-                            <td>{{ data1.celsius }}</td>
-                            <td>{{ data1.date }}</td>
-                            <td>{{ data1.time }}</td>
+                            <td>{{ c.id }}</td>
+                            <td>{{ c.celsius }}</td>
+                            <td>{{ c.date }}</td>
+                            <td>{{ c.time }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -34,7 +36,7 @@
         </div>
     </div>
     <br><br><br><br>
-    <h3>Fahrenheit Data Table</h3>
+    <h3>Tableau des données Fahrenheit</h3>
     <br>
     <div class="row">
         <div class="col-md-5">
@@ -75,22 +77,22 @@
     // celsius chart
     Chart.defaults.color = 'white';
     Chart.defaults.borderColor = 'gray';
-    const xValues1 = [];
-    const yValues1 = [];
+    const celsius = [];
+    const cDate = [];
 
-    {% for data1 in temperature_data %}
-    xValues1.push({{ data1.celsius }});
-    yValues1.push("{{ data1.date }} {{ data1.time }}");
+    {% for c in temperature_data %}
+    celsius.push({{ c.celsius }});
+    cDate.push("{{ c.date }} {{ c.time }}");
     {% endfor %}
 
     const ctx1 = document.getElementById('myChart1').getContext('2d');
 
-    const data1 = {
-        labels: yValues1,
+    const c = {
+        labels: cDate,
         datasets: [
             {
                 label: 'Celsius',
-                data: xValues1,
+                data: celsius,
                 borderColor: 'red',
                 backgroundColor: 'rgba(255, 0, 0, 0.5)',
                 pointStyle: 'circle',
@@ -104,7 +106,7 @@
 
     const config1 = {
         type: 'line',
-        data: data1,
+        data: c,
         options: {
             responsive: true,
             plugins: {
@@ -122,22 +124,22 @@
     // fahrenheit chart
     Chart.defaults.color = 'white';
     Chart.defaults.borderColor = 'gray';
-    const xValues = [];
-    const yValues = [];
+    const fahrenheit = [];
+    const fDate = [];
 
-    {% for data in temperature_data %}
-    xValues.push({{ data.celsius }});
-    yValues.push("{{ data.date }} {{ data.time }}");
+    {% for f in temperature_data %}
+    fahrenheit.push({{ f.celsius }});
+    fDate.push("{{ f.date }} {{ f.time }}");
     {% endfor %}
 
     const ctx = document.getElementById('myChart').getContext('2d');
 
-    const data = {
-        labels: yValues,
+    const f = {
+        labels: fDate,
         datasets: [
             {
                 label: 'Fahrenheit',
-                data: xValues,
+                data: fahrenheit,
                 borderColor: 'yellow',
                 backgroundColor: 'rgba(255, 255, 0, 0.5)',
                 pointStyle: 'circle',
@@ -150,7 +152,7 @@
 
     const config = {
         type: 'line',
-        data: data,
+        data: f,
         options: {
             responsive: true,
             plugins: {
