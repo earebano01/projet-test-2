@@ -1,0 +1,54 @@
+<title>JSON</title>
+
+{% extends 'ardjango/base.html' %}
+
+{% block content %}
+
+<div class="container1">
+    <div class="column">
+        <h1>URL #1</h1>
+        <button class="fetchDataButton" id="fetchDataButton1">GET</button>
+        <pre class="dataContainer" id="dataContainer1">
+            
+        </pre>
+    </div>
+    <div class="column">
+        <h1>URL #2</h1>
+        <button class="fetchDataButton" id="fetchDataButton2">GET</button>
+        <pre class="dataContainer" id="dataContainer2">
+            
+        </pre>
+    </div>
+    <div class="column">
+        <h1>URL #3</h1>
+        <button class="fetchDataButton" id="fetchDataButton3">GET</button>
+        <pre class="dataContainer" id="dataContainer3">
+            
+        </pre>
+    </div>
+</div>
+
+<script>
+    document.getElementById("fetchDataButton1").addEventListener("click", function () {
+        getData(1, "http://127.0.0.1:8000/api/humidity-data/");
+    });
+
+    document.getElementById("fetchDataButton2").addEventListener("click", function () {
+        getData(2, "http://127.0.0.1:8000/api/celsius-data/");
+    });
+
+    document.getElementById("fetchDataButton3").addEventListener("click", function () {
+        getData(3, "http://127.0.0.1:8000/api/fahrenheit-data/");
+    });
+
+    function getData(columnNumber, apiUrl) {
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const dataContainer = document.getElementById(`dataContainer${columnNumber}`);
+                dataContainer.textContent = JSON.stringify(data, null, 3);
+            });
+    }
+</script>
+
+{% endblock %}

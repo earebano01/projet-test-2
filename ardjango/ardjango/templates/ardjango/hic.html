@@ -1,0 +1,84 @@
+<title>Heat Index</title>
+
+{% extends 'ardjango/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>Tableau des données de l'indice de chaleur en °C</h3>
+    <br>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="scrollable-table">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Heat Index (°C)</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for hic in hic_data %}
+                        <tr>
+                            <td>{{ hic.id }}</td>
+                            <td>{{ hic.hic }}</td>
+                            <td>{{ hic.date }}</td>
+                            <td>{{ hic.time }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <canvas id="myChart1"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // heat index celsius chart
+        Chart.defaults.color = 'white';
+        Chart.defaults.borderColor = 'gray';
+        const hic = [];
+        const hicDate = [];
+
+        {% for hc in hic_data %}
+        hic.push({{ hc.hic }});
+        hicDate.push("{{ hc.date }} {{ hc.time }}");
+        {% endfor %}
+
+        const ctx1 = document.getElementById('myChart1').getContext('2d');
+        const hc = {
+            labels: hicDate,
+            datasets: [
+                {
+                    label: 'Celsius',
+                    data: hic,
+                    borderColor: 'orange',
+                    backgroundColor: 'rgba(255, 165, 0, 0.5)',
+                    pointStyle: 'circle',
+                    fill: true,
+                    pointRadius: 10,
+                    pointHoverRadius: 15
+                }
+            ]
+        };
+        const config1 = {
+            type: 'line',
+            data: hc,
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'HEAT INDEX (°C)'
+                    }
+                }
+            }
+        };
+        new Chart(ctx1, config1);    
+    </script>
+    <br>
+    {% endblock %}

@@ -19,7 +19,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for h in temperature_data %}
+                        {% for h in humidity_data %}
                         <tr>
                             <td>{{ h.id }}</td>
                             <td>{{ h.humidity }}</td>
@@ -44,7 +44,7 @@
     const humidity = [];
     const hDate = [];
 
-    {% for h in temperature_data %}
+    {% for h in humidity_data %}
     humidity.push({{ h.humidity }});
     hDate.push("{{ h.date }} {{ h.time }}");
     {% endfor %}

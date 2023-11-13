@@ -1,0 +1,84 @@
+<title>Fahrenheit</title>
+
+{% extends 'ardjango/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>Tableau des données Fahrenheit</h3>
+    <br>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="scrollable-table">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fahrenheit</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in fahrenheit_data %}
+                        <tr>
+                            <td>{{ data.id }}</td>
+                            <td>{{ data.fahrenheit }}</td>
+                            <td>{{ data.date }}</td>
+                            <td>{{ data.time }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>   
+    // fahrenheit chart
+    Chart.defaults.color = 'white';
+    Chart.defaults.borderColor = 'gray';
+    const fahrenheit = [];
+    const fDate = [];
+
+    {% for f in fahrenheit_data %}
+    fahrenheit.push({{ f.fahrenheit }});
+    fDate.push("{{ f.date }} {{ f.time }}");
+    {% endfor %}
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const f = {
+        labels: fDate,
+        datasets: [
+            {
+                label: 'Fahrenheit',
+                data: fahrenheit,
+                borderColor: 'yellow',
+                backgroundColor: 'rgba(255, 255, 0, 0.5)',
+                pointStyle: 'circle',
+                fill: true,
+                pointRadius: 10,
+                pointHoverRadius: 15
+            }
+        ]
+    };
+    const config = {
+        type: 'line',
+        data: f,
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'TEMPERATURE'
+                }
+            }
+        }
+    };
+    new Chart(ctx, config);
+</script>
+<br>
+{% endblock %}

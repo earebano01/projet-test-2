@@ -1,0 +1,85 @@
+<title>Heat Index</title>
+
+{% extends 'ardjango/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>Tableau des données de l'indice de chaleur en °F</h3>
+    <br>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="scrollable-table">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Heat Index (°F)</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for hif in hif_data %}
+                        <tr>
+                            <td>{{ hif.id }}</td>
+                            <td>{{ hif.hif }}</td>
+                            <td>{{ hif.date }}</td>
+                            <td>{{ hif.time }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    Chart.defaults.color = 'white';
+    Chart.defaults.borderColor = 'gray';
+    const hif = [];
+    const hifDate = [];
+
+    {% for hf in hif_data %}
+    hif.push({{ hf.hif }});
+    hifDate.push("{{ hf.date }} {{ hf.time }}");
+    {% endfor %}
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const hf = {
+        labels: hifDate,
+        datasets: [
+            {
+                label: 'Fahrenheit',
+                data: hif,
+                borderColor: 'blue',
+                backgroundColor: 'rgba(0, 0, 255, 0.5)',
+                pointStyle: 'circle',
+                fill: true,
+                pointRadius: 10,
+                pointHoverRadius: 15
+            }
+        ]
+    };
+
+    const config = {
+        type: 'line',
+        data: hf,
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'HEAT INDEX °F'
+                }
+            }
+        }
+    };
+
+    new Chart(ctx, config);
+</script>
+<br>
+{% endblock %}

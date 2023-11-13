@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="{% url 'home' %}">DHT11 Sensor Data (Test-2)</a>
+  <a class="navbar-brand" href="{% url 'home' %}">DHT11 Sensor Data (Projet 2 v1.2)</a>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
@@ -7,13 +7,16 @@
         <a class="nav-link" href="{% url 'humidity' %}">Humidité</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'temperature' %}">Temperature</a>
+        <a class="nav-link" href="{% url 'celsius' %}">Celsius</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'heat_index' %}">Indice de chaleur</a>
+        <a class="nav-link" href="{% url 'fahrenheit' %}">Fahrenheit</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'statistics' %}">Statistiques</a>
+        <a class="nav-link" href="{% url 'hic' %}">Heat Index (C)</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'hif' %}">Heat Index (F)</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/admin/">Admin</a>

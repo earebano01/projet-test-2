@@ -1,0 +1,86 @@
+<title>Celsius</title>
+
+{% extends 'ardjango/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>Tableau des données Celsius</h3>
+    <br>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="scrollable-table">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Celsius</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in celsius_data %}
+                        <tr>
+                            <td>{{ c.id }}</td>
+                            <td>{{ c.celsius }}</td>
+                            <td>{{ c.date }}</td>
+                            <td>{{ c.time }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <canvas id="myChart1"></canvas>
+        </div>
+    </div>
+
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // celsius chart
+    Chart.defaults.color = 'white';
+    Chart.defaults.borderColor = 'gray';
+    const celsius = [];
+    const cDate = [];
+
+    {% for c in celsius_data %}
+    celsius.push({{ c.celsius }});
+    cDate.push("{{ c.date }} {{ c.time }}");
+    {% endfor %}
+
+    const ctx1 = document.getElementById('myChart1').getContext('2d');
+    const c = {
+        labels: cDate,
+        datasets: [
+            {
+                label: 'Celsius',
+                data: celsius,
+                borderColor: 'red',
+                backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                pointStyle: 'circle',
+                fill: true,
+                pointRadius: 10,
+                pointHoverRadius: 15
+            }
+        ]
+    };
+    const config1 = {
+        type: 'line',
+        data: c,
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'CELSIUS'
+                }
+            }
+        }
+    };
+    new Chart(ctx1, config1);    
+</script>
+<br>
+{% endblock %}
