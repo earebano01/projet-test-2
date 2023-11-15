@@ -1,11 +1,5 @@
 from rest_framework import serializers
-# from .models import TemperatureData, HumidityData, CelsiusData, FahrenheitData, HICData, HIFData
 from .models import HumidityData, CelsiusData, FahrenheitData, HICData, HIFData
-
-# class TemperatureDataSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = TemperatureData
-#         fields = '__all__'
 
 class HumidityDataSerializer(serializers.ModelSerializer):
     class Meta:
