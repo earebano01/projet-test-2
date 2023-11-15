@@ -5,7 +5,7 @@ from .serializers import HumidityDataSerializer, CelsiusDataSerializer, Fahrenhe
 
 def home(request):
     return render(request, 'ardjango/intro.html')
-class HumidityDataViewSet(viewsets.ReadOnlyModelViewSet):
+class HumidityDataViewSet(viewsets.ModelViewSet):
     queryset = HumidityData.objects.all()
     serializer_class = HumidityDataSerializer
 
@@ -13,7 +13,7 @@ def humidityView(request):
     humidity_data = HumidityData.objects.all()
     return render(request, 'ardjango/humidity.html', {'humidity_data': humidity_data})
   
-class CelsiusDataViewSet(viewsets.ReadOnlyModelViewSet):
+class CelsiusDataViewSet(viewsets.ModelViewSet):
     queryset = CelsiusData.objects.all()
     serializer_class = CelsiusDataSerializer
 
@@ -22,7 +22,7 @@ def celsiusView(request):
     return render(request, 'ardjango/celsius.html', {'celsius_data': celsius_data})
   
 
-class FahrenheitDataViewSet(viewsets.ReadOnlyModelViewSet):
+class FahrenheitDataViewSet(viewsets.ModelViewSet):
     queryset = FahrenheitData.objects.all()
     serializer_class = FahrenheitDataSerializer
 
@@ -30,7 +30,7 @@ def fahrenheitView(request):
     fahrenheit_data = FahrenheitData.objects.all()
     return render(request, 'ardjango/fahrenheit.html', {'fahrenheit_data': fahrenheit_data})
 
-class HicDataViewSet(viewsets.ReadOnlyModelViewSet):
+class HicDataViewSet(viewsets.ModelViewSet):
     queryset = HICData.objects.all()
     serializer_class = HICDataSerializer
 
@@ -38,7 +38,7 @@ def HICView(request):
     hic_data = HICData.objects.all()
     return render(request, 'ardjango/hic.html', {'hic_data': hic_data})
 
-class HifDataViewSet(viewsets.ReadOnlyModelViewSet):
+class HifDataViewSet(viewsets.ModelViewSet):
     queryset = HIFData.objects.all()
     serializer_class = HIFDataSerializer
 
